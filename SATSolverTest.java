@@ -39,7 +39,7 @@ public class SATSolverTest {
         LinkedList<Integer> Holder = new LinkedList<>();
         Integer NumberofVariables=0;
         Integer NumberofClauses=0;
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:/Users/User/Desktop/HOASE/S8sat.cnf" ))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:/Users/User/Desktop/HOASE/LargeSat.cnf" ))) {
             //Requires buffered reader for readline function. Then read through substrings
             String View;
             while ((View =reader.readLine())!= null){
@@ -74,7 +74,7 @@ public class SATSolverTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if ((NumberofClauses-1)!=MasterForma.size()){
+        if (false){ //(NumberofClauses-1)!=MasterForma.size()){
             //System.out.println("ERROR IN INPUT FILE. CLAUSE NUMBER AND CLAUSES FOUND DID NOT MATCH");
         }
         else {
@@ -94,10 +94,10 @@ public class SATSolverTest {
             //finalised values = A.varlist.FinalisedValues appears as a hashtable.
             //new formula = A.Varlist.Formula //Appears as a ArrayList<LinkedList<Integer>>
             Boolean Stillhas = false;
-            for (LinkedList<Integer> AA: A.Varlist.Formula){
+            /*for (LinkedList<Integer> AA: A.Varlist.Formula){
                 System.out.println(AA);
                 if(AA.size()!=0){Stillhas=true;}
-            }
+            }*/
             if(Stillhas) {
                 Formula formula = new Formula();
                 for (LinkedList<Integer> CLAUSES : A.Varlist.Formula) {
@@ -112,7 +112,7 @@ public class SATSolverTest {
                     formula = formula.addClause(clause);
                 }
                 Environment env;
-                System.out.println(formula.toString());
+                //System.out.println(formula.toString());
                 env = SATSolver.solve(formula);
                 if (env == null) {
                     System.out.println("not satisfiable");
@@ -174,7 +174,7 @@ public class SATSolverTest {
                         Answer.put(I, holder);
                     }
                     for (Integer Answerkey : Answer.keySet()) {
-                        System.out.println(Answerkey);
+                        //System.out.println(Answerkey);
                         if (Answer.get(Answerkey) == false) {
                             out.println(Integer.toString(Answerkey) + ":FALSE");
                         } else {

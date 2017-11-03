@@ -1,4 +1,4 @@
-/**
+**
  * Author: dnj
  * Date: Mar 5, 2008, 5:02:48 PM
  * 6.005 Elements of Software Construction
@@ -7,7 +7,7 @@
 package sat.env;
 import immutable.ImListMap;
 import immutable.ImMap;
-
+import sat.formula.*;
 /**
  * An environment is an immutable mapping from variables to boolean values.
  * A special 3-valued Bool type is used to handle the case
@@ -40,14 +40,28 @@ public class Environment {
      */
     public Environment put(Variable v, Bool b) {
         return new Environment (bindings.put (v, b));
+
     }
 
     /**
      * @return a new environment in which l has the value Bool.TRUE
      * if a binding for l already exists, overwrites it
      */
+    public Environment putTrue(Literal l){
+        if (l instanceof PosLiteral){
+            return putTrue(l.getVariable());
+        }
+        return putFalse(l.getVariable());
+    }
+    public Environment putFalse(Literal l){
+        if (l instanceof PosLiteral){
+            return putFalse(l.getVariable());
+        }
+        return putTrue(l.getVariable());
+    }
     public Environment putTrue(Variable v) {
-        return new Environment (bindings.put (v, Bool.TRUE));
+       return new Environment (bindings.put (v, Bool.TRUE));
+
     }
 
     /**
